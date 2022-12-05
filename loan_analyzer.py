@@ -207,3 +207,20 @@ output_path = Path("inexpensive_loans.csv")
 # @TODO: Use the csv library and `csv.writer` to write the header row
 # and each row of `loan.values()` from the `inexpensive_loans` list.
 # YOUR CODE HERE!
+def get_loan_values(loan_price):
+    loan_values =[]
+    for row in loans:
+        if(loan_price==row["loan_price"]):
+            loan_values.append(row["loan_price"])
+            loan_values.append(row["remaining_months"])
+            loan_values.append(row["repayment_interval"])
+            loan_values.append(row["future_value"])
+            return loan_values
+    return "nothing_found"
+    
+
+with open(output_path,"w") as csvfile:
+    csvwriter = csv.writer(csvfile,delimiter=",")
+    csvwriter.writerow(header)
+    for loan_price in inexpensive_loans:
+        csvwriter.writerow(get_loan_values(loan_price))
